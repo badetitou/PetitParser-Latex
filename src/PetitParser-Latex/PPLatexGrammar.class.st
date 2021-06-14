@@ -9,7 +9,8 @@ Class {
 		'commandMarker',
 		'commandArguments',
 		'commandArgument',
-		'commandOption'
+		'commandOption',
+		'environment'
 	],
 	#category : #'PetitParser-Latex'
 }
@@ -53,7 +54,13 @@ PPLatexGrammar >> commandOption [
 { #category : #accessing }
 PPLatexGrammar >> document [
 
-	^ (command / text flatten) star
+	^ (environment / command / text flatten) star
+]
+
+{ #category : #accessing }
+PPLatexGrammar >> environment [
+
+	^ '\begin{' asParser , commandName , $} asParser , (text asParser starLazy: '\end' asParser) flatten , '\end{' asParser , commandName , $} asParser
 ]
 
 { #category : #accessing }
