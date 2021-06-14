@@ -7,24 +7,48 @@ Class {
 		'document',
 		'command',
 		'commandName',
-		'commandMarker'
+		'commandMarker',
+		'commandArguments',
+		'commandArgument',
+		'commandOption'
 	],
 	#category : #'PetitParser-Latex'
 }
 
 { #category : #accessing }
 PPLatexGrammar >> command [
-	^ $\ asParser, commandName ==> [ :n | n first value asString , n second value ]
+
+	^ $\ asParser , commandName , commandOption optional, commandArguments
+]
+
+{ #category : #accessing }
+PPLatexGrammar >> commandArgument [
+
+	^ ${ asParser , (#any asParser starLazy: $} asParser) flatten , $} asParser
+]
+
+{ #category : #accessing }
+PPLatexGrammar >> commandArguments [
+
+	^ commandArgument star
 ]
 
 { #category : #accessing }
 PPLatexGrammar >> commandMarker [
+
 	^ commandMarker
 ]
 
 { #category : #accessing }
 PPLatexGrammar >> commandName [
+
 	^ #word asParser plus flatten
+]
+
+{ #category : #accessing }
+PPLatexGrammar >> commandOption [
+
+	^ $[ asParser , (#any asParser starLazy: $] asParser) flatten , $] asParser
 ]
 
 { #category : #accessing }
