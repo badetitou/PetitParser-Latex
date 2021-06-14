@@ -3,7 +3,6 @@ Class {
 	#superclass : #PPCompositeParser,
 	#instVars : [
 		'text',
-		'level',
 		'document',
 		'command',
 		'commandName',
@@ -55,11 +54,6 @@ PPLatexGrammar >> commandOption [
 PPLatexGrammar >> document [
 
 	^ (command / text flatten) star
-]
-
-{ #category : #accessing }
-PPLatexGrammar >> level [
-	^ level
 ]
 
 { #category : #accessing }
